@@ -1,10 +1,9 @@
 package br.senac.bibliotech_api.Controller;
 
 import br.senac.bibliotech_api.Model.Livro;
-import br.senac.bibliotech_api.Service.Livro.livroService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import br.senac.bibliotech_api.Service.LivroService;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -12,15 +11,19 @@ import java.util.List;
 @RequestMapping("/api/livros")
 public class LivroController {
 
-    private final livroService service;
+    private final LivroService service;
 
-
-    public LivroController(livroService service) {
+    public LivroController(LivroService service) {
         this.service = service;
     }
 
     @GetMapping
     public List<Livro> obterTodos() {
-        return service.listarLivros();
+        return service.listarLivro();
+    }
+    //add
+    @PostMapping
+    public Livro cadastrarLivro(@RequestBody Livro livro) {
+        return service.salvarLivro(livro);
     }
 }
